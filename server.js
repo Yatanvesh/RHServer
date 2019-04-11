@@ -7,6 +7,8 @@ const app = express();
 enableWs(app);
 app.use(bodyParser.json());
 // app.use(cors());
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 let successObject = {
   response:"arre londeee"
@@ -31,6 +33,6 @@ app.ws('/user', (ws, req) => {
 });
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3006;
 
-app.listen(server_port, () => {
-  console.log(`Hello Gang, Websockets Server Running on PORT ${server_port}`);
+app.listen(port,ip, () => {
+  console.log(`Hello Gang, Websockets Server Running on PORT ${port}`);
 })
