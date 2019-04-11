@@ -23,7 +23,8 @@ app.ws('/user', (ws, req) => {
   })
 
 });
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3006;
 
-app.listen(process.env.PORT || 3006, () => {
-  console.log(`Hello Gang, Websockets Server Running on PORT ${process.env.PORT||3006}`);
+app.listen(server_port, () => {
+  console.log(`Hello Gang, Websockets Server Running on PORT ${server_port}`);
 })
