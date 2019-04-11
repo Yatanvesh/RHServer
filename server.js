@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+// const cors = require('cors');
 const knex = require('knex');
 const enableWs = require('express-ws');
 const app = express();
 enableWs(app);
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
 
 let successObject = {
   response:"arre londeee"
