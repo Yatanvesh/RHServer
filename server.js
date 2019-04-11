@@ -12,6 +12,12 @@ let successObject = {
   response:"arre londeee"
 };
 
+app.get('/', (req, res) => {
+
+    res.send("success");
+});
+
+
 app.ws('/user', (ws, req) => {
 
   ws.on('message', msg => {
