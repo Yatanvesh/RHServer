@@ -153,8 +153,8 @@ app.ws('/ambulance', (ws, req) => {
                     eta:'5'
                 };
                 console.log('ambulance okay, sending  to user');
-                //hospital send here
                 sendWSData(wsUser, successObj);
+                sendWSData(wsHospital,localDetails);
             }
         } else if (action === 'requestSignin'){
             const {email, password} = message;
@@ -232,7 +232,6 @@ app.ws('/predictor', (ws, req) => {
 
 app.ws('/hospital', (ws, req) => {
     wsHospital =ws;
-    ws.send(JSON.stringify(localDetails));
     ws.on('message', msg => {
 
     });
