@@ -46,17 +46,17 @@ app.ws('/user', (ws, req) => {
       case 'signin':
       const {email, password} = message;
       if (email == localUser.email && password == localUser.password){
-        res.json({
+        ws.send( JSON.stringify({
           action:'signinResponse',
           status:'success',
           name:"Gawaar",
           details:"empty for now"
-        })
+        }));
       }
-      else res.json({
+      else ws.send(JSON.stringify( {
         action:signinResonse,
         status:'fail',
-      })
+      }));
       // db.select('*').from('users').where({
       //     email: email
       // }).then(user => {
