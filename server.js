@@ -235,7 +235,7 @@ app.ws('/hospital', (ws, req) => {
     ws.send(JSON.stringify(localDetails));
     ws.on('message', msg => {
 
-    }
+    });
 
     ws.on('close', () => {
         console.log('WebSocket hospital was closed');
