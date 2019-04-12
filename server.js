@@ -234,6 +234,7 @@ app.ws('/hospital', (ws, req) => {
     ws.on('message', msg => {
         wsHospital =ws;
         console.log('hospital ready');
+        sendWSData(wsHospital,localDetails);
     });
 
     ws.on('close', () => {
