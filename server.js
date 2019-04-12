@@ -201,6 +201,18 @@ app.ws('/ambulance', (ws, req) => {
         }
         else {
             console.log('unknown action', action);
+            console.log('ready ambulacnce');
+            wsAmbulance = ws;
+            wsAmbulance.requestAmbulance = (request) => {
+                console.log("ambulance request received," , request);
+                let distressObject  = {
+                    action:'requestAmbulance',
+                    latitude: request.latitude,
+                    longitude:request.longitude,
+                    email:request.email
+                };
+                sendWSData(wsAmbulance, distressObject);
+            };
         }
     });
     ws.on('close', () => {
