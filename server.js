@@ -27,6 +27,24 @@ let localDriver = {
     password:'b'
 
 };
+
+let localDetails ={
+    action:'distress',
+    user:{
+        username:'John Doe',
+        age:'45',
+        sex:'M',
+        phone:'8282827272',
+        medcondition:'Diabetes',
+        illnesses:'Cancer',
+        address:'Hno 9 424/2 8th camp Hebbal East, Bangalore',
+        phonemergency:'2763822937',
+        bloodgroup:'B +ve',
+        medicineintolerance:'PCM',
+        medication:"Medical marijuana",
+        special:"Allergic to bees"
+    }
+}
 let sendWSData = (ws, data)=>{
     if(ws!=null){
         if (ws.readyState != ws.CLOSED){
@@ -190,7 +208,6 @@ let sendGyroData = (ws) => {
 };
 
 app.ws('/predictor', (ws, req) => {
-
     ws.on('message', msg => {
         let predObj = JSON.parse(msg);
         if (predObj.action === 'ready') {
@@ -211,6 +228,21 @@ app.ws('/predictor', (ws, req) => {
         predictorInterval = null;
     })
 });
+
+
+app.ws('/hospital', (ws, req) => {
+    wsHospital =ws;
+    ws.send(JSON.stringify(localDetails));
+    ws.on('message', msg => {
+
+    }
+
+    ws.on('close', () => {
+        console.log('WebSocket hospital was closed');
+        wsHospital = null;
+    })
+});
+
 
 app.listen(port, ip, () => {
     console.log(`Hello Gang, Websockets Server Running on PORT ${port}`);
