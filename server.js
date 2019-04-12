@@ -238,7 +238,8 @@ app.ws('/hospital', (ws, req) => {
         console.log('hospital ready');
         hospitalInterval=setInterval(()=>{
             if (hospitalPending===true) {
-                sendWSData(wsHospital,localDetails);
+                sendWSData(ws,localDetails);
+                console.log('sent hospital');
                 hospitalPending= false;
             }
 
