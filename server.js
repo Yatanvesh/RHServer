@@ -38,12 +38,13 @@ let localUser ={
 app.ws('/user', (ws, req) => {
 
   ws.on('message', msg => {
+    let message = JSON.parse(msg);
     const {
         action
-    } = req.body;
+    } = message;
     switch(action){
       case 'signin':
-      const {email, password} = req.body;
+      const {email, password} = message;
       if (email == localUser.email && password == localUser.password){
         res.json({
           action:'signinResponse',
