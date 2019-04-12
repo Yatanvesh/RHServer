@@ -125,25 +125,38 @@ app.ws('/user', (ws, req) => {
 });
 
 app.ws('/ambulance', (ws, req) => {
-    wsAmbulance = ws;
-    wsAmbulance.requestAmbulance = (request) => {
-        console.log("ambulance request received," , request);
-        let distressObject  = {
-            action:'requestAmbulance',
-            latitude: request.latitude,
-            longitude:request.longitude,
-            email:request.email
-        };
-        sendWSData(ws, distressObject);
-
-    };
+    //wsAmbulance = ws;
+    // wsAmbulance.requestAmbulance = (request) => {
+    //     console.log("ambulance request received," , request);
+    //     let distressObject  = {
+    //         action:'requestAmbulance',
+    //         latitude: request.latitude,
+    //         longitude:request.longitude,
+    //         email:request.email
+    //     };
+    //     sendWSData(ws, distressObject);
+    //
+    // };
     ws.on('message', msg => {
         let message = JSON.parse(msg);
         const {
             action
         } = message;
         console.log('ambulance received this:', message);
-        if (action === 'ambulanceResponse') {
+        if(action === 'ready'){
+            wsAmbulance = ws;
+            wsAmbulance.requestAmbulance = (request) => {
+                console.log("ambulance request received," , request);
+                let distressObject  = {
+                    action:'requestAmbulance',
+                    latitude: request.latitude,
+                    longitude:request.longitude,
+                    email:request.email
+                };
+                sendWSData(wsAmbulance, distressObject);
+            };
+        }
+        else if (action === 'ambulanceResponse') {
             let {status }= message;
             if(status === 'success'){
                 let successObj = {
