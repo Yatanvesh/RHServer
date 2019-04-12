@@ -42,9 +42,11 @@ app.ws('/user', (ws, req) => {
     const {
         action
     } = message;
+    console.log(message);
     switch(action){
       case 'signin':
       const {email, password} = message;
+      console.log(email, password);
       if (email == localUser.email && password == localUser.password){
         ws.send( JSON.stringify({
           action:'signinResponse',
@@ -54,7 +56,7 @@ app.ws('/user', (ws, req) => {
         }));
       }
       else ws.send(JSON.stringify( {
-        action:signinResonse,
+        action:'signinResponse',
         status:'fail',
       }));
       // db.select('*').from('users').where({
