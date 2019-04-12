@@ -6,16 +6,6 @@ const enableWs = require('express-ws');
 const app = express();
 enableWs(app);
 app.use(bodyParser.json());
-
-// const db = knex({
-//     client: 'pg',
-//     connection: {
-//         host: 'postgresql://postgresql:5432/',
-//         user: "userRW3",
-//         password: 'SoroQ2jQtYbCCHwU',
-//         database: 'exigency'
-//     }
-// });
 // app.use(cors());
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -62,7 +52,7 @@ app.ws('/user', (ws, req) => {
         const {
             action
         } = message;
-        console.log('user recieved this:', message);
+        // console.log('user recieved this:', message);
         if (action === 'requestSignin') {
             const {email, password} = message;
             console.log(email, password);
@@ -94,7 +84,7 @@ app.ws('/user', (ws, req) => {
         } else if (action === 'gyroResponse'){
             let {x,y,z} = message;
             let magnitude = Math.sqrt(x * x + y * y + z * z);
-            console.log(magnitude);
+            // console.log(magnitude);
             gyroData.push(magnitude);
         } else if (action === 'gyroReady'){
             console.log('gyroready');
@@ -113,7 +103,6 @@ app.ws('/user', (ws, req) => {
         console.log('WebSocket user was closed');
         wsUser = null;
     })
-
 });
 
 app.ws('/ambulance', (ws, req) => {
@@ -203,7 +192,6 @@ let sendGyroData = (ws) => {
 app.ws('/predictor', (ws, req) => {
 
     ws.on('message', msg => {
-
         let predObj = JSON.parse(msg);
         if (predObj.action === 'ready') {
             predictorInterval = setInterval(() => {
