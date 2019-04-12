@@ -202,9 +202,9 @@ let sendGyroData = (ws) => {
         gyroData = gyroData.slice(gyroData.length - 60, gyroData.length);
     }
     let sendObj = {
-        data: gyroData.slice(gyroData.length - 30, gyroData.length)
+        data: gyroData.slice(gyroData.length - 50, gyroData.length)
     };
-    if (gyroData.length >= 30) {
+    if (gyroData.length >= 50) {
         sendWSData(ws, sendObj);
     }
 };
