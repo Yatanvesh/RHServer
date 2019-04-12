@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 app.ws('/user', (ws, req) => {
 
   ws.on('message', msg => {
+    console.log(msg);
       ws.send(JSON.stringify(successObject));
   })
 
