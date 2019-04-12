@@ -58,6 +58,7 @@ let wsAmbulance = null;
 let wsHospital =null;
 let gyroData = [];
 let getGyroInterval = null;
+let hospitalPending = false;
 let gyroRequest = {
     action: 'giveGyro'
 };
@@ -154,7 +155,8 @@ app.ws('/ambulance', (ws, req) => {
                 };
                 console.log('ambulance okay, sending  to user');
                 sendWSData(wsUser, successObj);
-                sendWSData(wsHospital,localDetails);
+                // sendWSData(wsHospital,localDetails);
+                hospitalPending = true;
             }
         } else if (action === 'requestSignin'){
             const {email, password} = message;
@@ -229,17 +231,27 @@ app.ws('/predictor', (ws, req) => {
     })
 });
 
-
+let hospitalInterval = null;
 app.ws('/hospital', (ws, req) => {
     ws.on('message', msg => {
         wsHospital =ws;
         console.log('hospital ready');
-        sendWSData(wsHospital,localDetails);
+        hospitalInterval=setInterval(()=>{
+            if (hospitalPending===true) {
+                sendWSData(wsHospital,localDetails);
+                hospitalPending= false;
+            }
+
+        },1000);
+        // sendWSData(wsHospital,localDetails);
     });
 
     ws.on('close', () => {
         console.log('WebSocket hospital was closed');
         wsHospital = null;
+        hospitalPending=false;
+        clearInterval(hospitalInterval);
+        hospitalInterval = null;
     })
 });
 
