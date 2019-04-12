@@ -155,24 +155,20 @@ app.ws('/ambulance', (ws, req) => {
                     email:request.email
                 };
                 sendWSData(wsAmbulance, distressObject);
-            };
-        }
-        else if (action === 'ambulanceResponse') {
-            let {status }= message;
-            if(status === 'success'){
                 let successObj = {
                     action:'ambulanceResponse',
                     status:'success',
                     driverNumber:localDriver.number,
                     driverName:localDriver.name,
-                    eta:'5'
+                    eta:'2'
                 };
                 console.log('ambulance okay, sending  to user');
                 sendWSData(wsUser, successObj);
                 // sendWSData(wsHospital,localDetails);
                 hospitalPending = true;
-            }
-        } else if (action === 'requestSignin'){
+            };
+        }
+        else if (action === 'requestSignin'){
             const {email, password} = message;
             console.log(email, password);
             if (email === localDriver.email && password === localDriver.password) {
