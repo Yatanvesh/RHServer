@@ -132,7 +132,7 @@ app.ws('/ambulance', (ws, req) => {
                 sendWSData(wsUser, successObj);
             }
         } else if (action === 'requestSignin'){
-            const {email, password, latitude, longitude} = message;
+            const {email, password} = message;
             console.log(email, password);
             if (email === localDriver.email && password === localDriver.password) {
                 let responseObj = {
@@ -142,11 +142,7 @@ app.ws('/ambulance', (ws, req) => {
                     details: "empty for now"
                 };
                 sendWSData(ws, responseObj);
-                sendWSData(wsUser, {
-                    action:'driverLocation',
-                    latitude:latitude,
-                    longitude:longitude
-                })
+
             } else {
                 sendWSData(ws, {
                     action: 'signinResponse',
