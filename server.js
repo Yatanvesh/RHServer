@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 // const cors = require('cors');
-const knex = require('knex');
+// const knex = require('knex');
 const enableWs = require('express-ws');
 const app = express();
 enableWs(app);
@@ -21,7 +21,6 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 app.get('/', (req, res) => {
-
     res.send("success");
 });
 
@@ -33,7 +32,7 @@ let localUser = {
 
 let localDriver = {
     number:'8050738265',
-    name:'Nagada',
+    name:'Supada',
     email:'b',
     password:'b'
 
@@ -48,6 +47,14 @@ let sendWSData = (ws, data)=>{
 
 let wsUser = null;
 let wsAmbulance = null;
+let wsHospital =null;
+let gyroData = [];
+let getGyroInterval = null;
+let gyroRequest = {
+    action: 'giveGyro'
+};
+let predictorInterval = null;
+
 app.ws('/user', (ws, req) => {
     wsUser = ws;
     ws.on('message', msg => {
@@ -85,9 +92,16 @@ app.ws('/user', (ws, req) => {
             }
         } else if (action === 'gyroResponse'){
             let {x,y,z} = message;
-            console.log(x,y,z);
+            let magnitude = Math.sqrt(x * x + y * y + z * z);
+            console.log(magnitude);
+            gyroData.push(magnitude);
+        } else if (action === 'gyroReady'){
+            getGyroInterval = setInterval(() => {
+                if (ws.readyState != ws.CLOSED) {
+                    ws.send(JSON.stringify(gyroRequest));
+                }
+            }, 100);
         }
-
         else {
             console.log('unknown action', action);
         }
@@ -129,6 +143,7 @@ app.ws('/ambulance', (ws, req) => {
                     driverName:localDriver.name,
                     eta:'5'
                 };
+                //hospital send here
                 sendWSData(wsUser, successObj);
             }
         } else if (action === 'requestSignin'){
@@ -166,6 +181,43 @@ app.ws('/ambulance', (ws, req) => {
         wsAmbulance = null;
     })
 
+});
+
+
+let sendGyroData = (ws) => {
+    if (gyroData.length > 300) {
+        gyroData = gyroData.slice(gyroData.length - 60, gyroData.length);
+    }
+    let sendObj = {
+        data: gyroData.slice(gyroData.length - 30, gyroData.length)
+    };
+    if (gyroData.length >= 30) {
+        sendWSData(ws, sendObj);
+    }
+};
+
+app.ws('/predictor', (ws, req) => {
+
+    ws.on('message', msg => {
+
+        let predObj = JSON.parse(msg);
+        if (predObj.action === 'ready') {
+            predictorInterval = setInterval(() => {
+                sendGyroData(ws);
+            }, 1000);
+        } else if (predObj.action === 'prediction') {
+            let {
+                prediction
+            } = predObj;
+            console.log('prediction', prediction);
+        }
+    });
+
+    ws.on('close', () => {
+        console.log('WebSocket predictor was closed');
+        clearInterval(predictorInterval);
+        predictorInterval = null;
+    })
 });
 
 app.listen(port, ip, () => {
