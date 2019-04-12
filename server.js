@@ -231,9 +231,9 @@ app.ws('/predictor', (ws, req) => {
 
 
 app.ws('/hospital', (ws, req) => {
-    wsHospital =ws;
     ws.on('message', msg => {
-
+        wsHospital =ws;
+        console.log('hospital ready');
     });
 
     ws.on('close', () => {

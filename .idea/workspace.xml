@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85154ce6-6ed2-4f37-ae10-25c49484bf97" name="Default Changelist" comment="" />
+    <list default="true" id="85154ce6-6ed2-4f37-ae10-25c49484bf97" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -16,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="40" column="21" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="21" />
+            <state relative-caret-position="259">
+              <caret line="235" column="38" selection-start-line="235" selection-start-column="38" selection-end-line="235" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -87,12 +89,12 @@
       <option name="presentableId" value="Default" />
       <updated>1555062396368</updated>
       <workItem from="1555062397502" duration="5969000" />
-      <workItem from="1555052050380" duration="11855000" />
+      <workItem from="1555052050380" duration="13382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17824000" />
+    <option name="totallyTimeSpent" value="19351000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="0" width="1370" height="750" extended-state="0" />
@@ -112,7 +114,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.399361" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.22523962" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -124,8 +126,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="40" column="21" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="21" />
+        <state relative-caret-position="259">
+          <caret line="235" column="38" selection-start-line="235" selection-start-column="38" selection-end-line="235" selection-end-column="38" />
         </state>
       </provider>
     </entry>
