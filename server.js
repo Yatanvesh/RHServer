@@ -143,7 +143,8 @@ app.ws('/ambulance', (ws, req) => {
             action
         } = message;
         console.log('ambulance received this:', message);
-        if(action === 'ready'){
+        if(action =='ready'){
+            console.log('ready ambulacnce');
             wsAmbulance = ws;
             wsAmbulance.requestAmbulance = (request) => {
                 console.log("ambulance request received," , request);
