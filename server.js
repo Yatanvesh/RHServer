@@ -51,7 +51,7 @@ app.ws('/user', (ws, req) => {
         ws.send( JSON.stringify({
           action:'signinResponse',
           status:'success',
-          name:"Gawaar",
+          email:email,
           details:"empty for now"
         }));
       }
