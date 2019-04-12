@@ -46,7 +46,7 @@ app.ws('/user', (ws, req) => {
       const {email, password} = req.body;
       if (email == localUser.email && password == localUser.password){
         res.json({
-          action:signinResonse,
+          action:'signinResponse',
           status:'success',
           name:"Gawaar",
           details:"empty for now"
