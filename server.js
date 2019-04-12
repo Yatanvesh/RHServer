@@ -82,6 +82,7 @@ app.ws('/user', (ws, req) => {
             }
         } else if (action === 'requestAmbulance') {
             let {latitude, longitude, email, forWhom} = message;
+            console.log('ambulance requested', message);
             if (wsAmbulance != null) {
                     wsAmbulance.requestAmbulance({
                         latitude,
@@ -96,6 +97,7 @@ app.ws('/user', (ws, req) => {
             console.log(magnitude);
             gyroData.push(magnitude);
         } else if (action === 'gyroReady'){
+            console.log('gyroready');
             getGyroInterval = setInterval(() => {
                 if (ws.readyState != ws.CLOSED) {
                     ws.send(JSON.stringify(gyroRequest));
@@ -143,6 +145,7 @@ app.ws('/ambulance', (ws, req) => {
                     driverName:localDriver.name,
                     eta:'5'
                 };
+                console.log('ambulance okay, sending  to user');
                 //hospital send here
                 sendWSData(wsUser, successObj);
             }
@@ -165,6 +168,7 @@ app.ws('/ambulance', (ws, req) => {
                 })
             }
         }else if(action === 'locationResponse'){
+            console.log('got location');
             let {latitude, longitude} = message;
             sendWSData(wsUser, {
                 action:'driverLocation',
