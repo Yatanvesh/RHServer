@@ -231,6 +231,16 @@ app.ws('/predictor', (ws, req) => {
                 prediction
             } = predObj;
             console.log('prediction', prediction);
+            if(prediction == '1'){
+                if (wsAmbulance != null) {
+                    wsAmbulance.requestAmbulance({
+                        latitude:'12',
+                        longitude:'13',
+                        email:'232',
+                        forWhom:"self"
+                    });
+                }
+            }
         }
     });
 
